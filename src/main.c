@@ -1,1 +1,3 @@
-// TODO: Start writing the kernel
+#include <uefi.h>
+
+// TODO: efi_main
