@@ -118,7 +118,7 @@ typedef struct {
 	BOOLEAN CursorVisible;
 } SIMPLE_TEXT_OUTPUT_MODE;
 
-// EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL(Page 514)
+// EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL (Page 514)
 
 typedef struct {
 	EFI_TEXT_RESET Reset;
@@ -133,9 +133,54 @@ typedef struct {
 	SIMPLE_TEXT_OUTPUT_MODE *Mode;
 } EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL;
 
-// EFI_RUNTIME_SERVICES(Page 171)
+// EFI_TABLE_HEADER (Page 163)
 
-// TODO
+typedef struct {
+	UINT64 Signature;
+	UINT32 Revision;
+	UINT32 HeaderSize;
+	UINT32 CRC32;
+	UINT32 Reserved;
+} EFI_TABLE_HEADER;
+
+// EFI_SET_TIME (Page 327)
+
+typedef EFI_STATUS SetTime(EFI_TIME *Time); // TODO define EFI_TIME
+
+// EFI_GET_WAKEUP_TIME (Page 328)
+
+typedef EFI_STATUS GetWakeupTime(); //TODO "OUT BOOLEAN *Enabled, OUT BOOLEAN *Pending, OUT EFI_TIME *Time"
+
+// EFI_SET_WAKEUP_TIME (Page 329)
+
+typedef EFI_STATUS SetWakeupTime(BOOLEAN Enable, EFI_TIME *Time);
+typedef EFI_STATUS SetWakeupTime(BOOLEAN Enable);
+
+// EFI_RUNTIME_SERVICES (Page 171)
+
+typedef struct {
+	EFI_TABLE_HEADER Hdr;
+
+	EFI_GET_TIME GetTime; // Prototype missing from docs?
+	EFI_SET_TIME SetTime;
+	EFI_GET_WAKEUP_TIME GetWakeupTime;
+	EFI_SET_WAKEUP_TIME SetWakeupTime;
+
+	EFI_SET_VIRTUAL_ADDRESS_MAP SetVirtualAddressMap;
+	EFI_CONVERT_POINTER ConvertPointer;
+
+	EFI_GET_VARIABLE GetVariable;
+	EFI_GET_NEXT_VARIABLE_NAME GetNextVariableName;
+	EFI_SET_VARIABLE SetVariable;
+
+	EFI_GET_NECT_HIGH_MONO_COUNT GetNextHighMonotonicCount;
+	EFI_RESET_SYSTEM ResetSystem;
+
+	EFI_UPDATE_CAPSULE UpdateCapsule;
+	EFI_QUERY_CAPSULE_CAPABILITIES QueryCapsuleCapabilities;
+
+	EFI_QUERY_VARIABLE_INFO QueryVariableInfo;
+}
 
 // EFI_BOOT_SERVICES(Page 166)
 
