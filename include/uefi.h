@@ -3,3 +3,5 @@
 #include <uefi/EntryPoint.h>
 #include <uefi/SimpleTextInput.h>
 #include <uefi/SimpleTextOutput.h>
+#include <uefi/BootServices.h>
+#include <uefi/RuntimeServices.h>

@@ -5,8 +5,8 @@ LDFLAGS=-nostdlib -Wl,-dll -shared -Wl,--subsystem,10 -e efi_main
 
 OBJECTS=main.o
 
-kernel: $(OBJECTS)
-	$(LD) -o $@ $^ $(LDFLAGS)
+kernel: $(addprefix src/, $(OBJECTS))
+	$(LD) $(LDFLAGS) -o $@ $^
 
 %.o: %.c
-	$(CC) -c -o $@ $< $(CFLAGS)
+	$(CC) $(CFLAGS) -c -o $@ $<

@@ -5,7 +5,6 @@
 #define UEFI_TYPES_H
 
 // UEFI Types(Page 93)
-
 #if sizeof(char) == 1
 typedef signed char INT8;
 typedef unsigned char UINT8;
@@ -65,5 +64,14 @@ typedef UINT8[32] EFI_MAC_ADDRESS;
 typedef UINT8[4] EFI_IPv4_ADDRESS;
 typedef UINT8[16] EFI_IPv6_ADDRESS;
 typedef UINT32[4] EFI_IP_ADDRESS; // Aligned on a 4 byte boundary
+
+// EFI_TABLE_HEADER(Page 163)
+typedef struct {
+	UINT64 Signature;
+	UINT32 Revision;
+	UINT32 HeaderSize;
+	UINT32 CRC32;
+	UINT32 Reserved;
+} EFI_TABLE_HEADER;
 
 #endif

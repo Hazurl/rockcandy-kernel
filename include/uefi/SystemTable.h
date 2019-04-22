@@ -2,22 +2,15 @@
 // https://uefi.org/sites/default/files/resources/UEFI_Spec_2_8_final.pdf
 
 #include <uefi/types.h>
+#include <uefi/SimpleTextInput.h>
+#include <uefi/SimpleTextOutput.h>
+#include <uefi/RuntimeServices.h>
+#include <uefi/BootServices.h>
 
 #ifndef UEFI_SYSTEM_TABLE_H
 #define UEFI_SYSTEM_TABLE_H
 
-// EFI_TABLE_HEADER(Page 163)
-
-typedef struct {
-	UINT64 Signature;
-	UINT32 Revision;
-	UINT32 HeaderSize;
-	UINT32 CRC32;
-	UINT32 Reserved;
-} EFI_TABLE_HEADER;
-
 // EFI_RUNTIME_SERVICES (Page 171)
-
 typedef struct {
 	EFI_TABLE_HEADER Hdr;
 
@@ -43,7 +36,6 @@ typedef struct {
 } EFI_RUNTIME_SERVICES;
 
 // EFI_BOOT_SERVICES(Page 166)
-
 typedef struct {
 	EFI_TABLE_HEADER Hdr;
 
@@ -102,14 +94,12 @@ typedef struct {
 } EFI_BOOT_SERVICES;
 
 // EFI_CONFIGURATION_TABLE(Page 173)
-
 typedef struct {
 	EFI_GUID VendorGuid;
 	VOID *VendorTable;
 } EFI_CONFIGURATION_TABLE;
 
 // EFI_SYSTEM_TABLE(Page 165)
-
 typedef struct {
 	EFI_TABLE_HEADER Hdr;
 	CHAR16 *FirmwareVendor;

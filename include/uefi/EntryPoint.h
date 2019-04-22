@@ -8,7 +8,6 @@
 #define UEFI_ENTRY_POINT_H
 
 // EFI_IMAGE_ENTRY_POINT(Page 162)
-
 typedef EFI_STATUS (VOID *EFI_IMAGE_ENTRY_POINT) (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable);
 
 #endif
