@@ -10,3 +10,6 @@ kernel: $(addprefix src/, $(OBJECTS))
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
+
+clean:
+	rm $(addprefix src/, $(OBJECTS))
