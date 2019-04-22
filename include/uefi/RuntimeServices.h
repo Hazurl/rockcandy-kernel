@@ -7,7 +7,6 @@
 #define UEFI_RUNTIME_SERVICES_H
 
 // EFI_TABLE_HEADER(Page 163)
-
 typedef struct {
 	UINT64 Signature;
 	UINT32 Revision;
@@ -18,17 +17,16 @@ typedef struct {
 
 // GetTime?
 
-// EFI_SET_TIME(Page 327)
 // EFI_TIME?
+
+// EFI_SET_TIME(Page 327)
 typedef EFI_STATUS SetTime(EFI_TIME *Time);
 
 // EFI_GET_WAKEUP_TIME(Page 328)
-
 typedef EFI_STATUS GetWakeupTime(typedef EFI_STATUS GetWakeupTime(BOOLEAN *Enabled, BOOLEAN *Pending, EFI_TIME *Time);
 
 // EFI_SET_WAKEUP_TIME(Page 329)
-
-typedef EFI_STATUS SetWakeupTime(BOOLEAN Enable, EFI_TIME *Time);
+typedef EFI_STATUS SetWakeupTime(BOOLEAN Enable, EFI_TIME *Time); // Multiple argument signatures not supported?
 typedef EFI_STATUS SetWakeupTime(BOOLEAN Enable);
 
 // SetVirtualAddressMap?
