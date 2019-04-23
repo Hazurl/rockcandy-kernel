@@ -47,8 +47,6 @@ typedef enum {
   EfiMaxMemoryType
 } EFI_MEMORY_TYPE;
 
-// EFI_PHYSICAL_ADDRESS?
-
 // AllocatePages(Page 234)
 typedef EFI_STATUS (VOID *EFI_ALLOCATE_PAGES) (EFI_ALLOCATE_TYPE Type, EFI_MEMORY_TYPE MemoryType, UINTN Pages, EFI_PHYSICAL_ADDRESS *Memory);
 

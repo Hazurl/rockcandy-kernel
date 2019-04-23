@@ -74,4 +74,7 @@ typedef struct {
 	UINT32 Reserved;
 } EFI_TABLE_HEADER;
 
+// EFI_PHYSICAL_ADDRESS(Page 235)
+typedef UINT64 EFI_PHYSICAL_ADDRESS;
+
 #endif
