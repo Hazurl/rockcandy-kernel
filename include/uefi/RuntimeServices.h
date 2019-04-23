@@ -25,33 +25,32 @@ typedef struct {
 // GetTime?
 
 // EFI_SET_TIME(Page 327)
-typedef EFI_STATUS SetTime(EFI_TIME *Time);
+typedef EFI_STATUS (*EFI_SET_TIME)(EFI_TIME *Time);
 
 // EFI_GET_WAKEUP_TIME(Page 328)
-typedef EFI_STATUS GetWakeupTime(BOOLEAN *Enabled, BOOLEAN *Pending, EFI_TIME *Time);
+typedef EFI_STATUS (*EFI_GET_WAKEUP_TIME)(BOOLEAN *Enabled, BOOLEAN *Pending, EFI_TIME *Time);
 
 // EFI_SET_WAKEUP_TIME(Page 329)
-typedef EFI_STATUS SetWakeupTime(BOOLEAN Enable, EFI_TIME *Time);
-typedef EFI_STATUS EnableWakeupTime(BOOLEAN Enable);
+typedef EFI_STATUS (*EFI_SET_WAKEUP_TIME)(BOOLEAN Enable, EFI_TIME *Time); // Is this correct?
+// typedef EFI_STATUS EnableWakeupTime(BOOLEAN Enable);
 
 // SetVirtualAddressMap (Page 331)
-// EFI_MEMORY_DESCRIPTOR is from BootServices
-typedef EFI_STATUS SetVirtualAddressMap(UINTN MemoryMapSize, UINTN DescriptorSize, UINT32 DescriptorVersion, EFI_MEMORY_DESCRIPTOR *VirtualMap);
+typedef EFI_STATUS (*EFI_SET_VIRTUAL_ADDRESS_MAP)(UINTN MemoryMapSize, UINTN DescriptorSize, UINT32 DescriptorVersion, EFI_MEMORY_DESCRIPTOR *VirtualMap);
 
 // ConvertPointer (Page 332)
-typedef EFI_STATUS ConvertPointer(UINTN DebugDisposition, VOID **Address);
+typedef EFI_STATUS (*EFI_CONVERT_POINTER)(UINTN DebugDisposition, VOID **Address);
 
 // GetVariable (Page 303)
-typedef EFI_STATUS GetVariable(CHAR16 *VariableName, EFI_GUID *VenderGuide, UINT32 *Attributes /*Optional*/, UINTN *DataSize, VOID *Data /*Optional*/);
+typedef EFI_STATUS (*EFI_GET_VARIABLE)(CHAR16 *VariableName, EFI_GUID *VenderGuide, UINT32 *Attributes /*Optional*/, UINTN *DataSize, VOID *Data /*Optional*/);
 
 // GetNextVariableName (Page 306)
-typedef EFI_STATUS GetNextVariableName(UINTN *VariableNameSize, CHAR16 *VariableName, EFI_GUID *VenderGuid);
+typedef EFI_STATUS (*EFI_GET_NEXT_VARIABLE_NAME)(UINTN *VariableNameSize, CHAR16 *VariableName, EFI_GUID *VenderGuid);
 
 // SetVariable (Page 308)
-typedef EFI_STATUS SetVariable(CHAR16 *VariableName, EFI_GUID *VenderGuide, UINT32 Attributes, UINTN DataSize, VOID *Data);
+typedef EFI_STATUS (*EFI_SET_VARIABLE)(CHAR16 *VariableName, EFI_GUID *VenderGuide, UINT32 Attributes, UINTN DataSize, VOID *Data);
 
 // GetNextHighMonotonicCount (Page 336)
-typedef EFI_STATUS GetNextHighMonotonicCount(UINT32 *HighCount);
+typedef EFI_STATUS (*EFI_GET_NEXT_HIGH_MONOTONIC_COUNT)(UINT32 *HighCount);
 
 // EFI_RESET_TYPE (Page 335)
 typedef enum {
@@ -62,7 +61,7 @@ typedef enum {
 } EFI_RESET_TYPE;
 
 // ResetSystem (Page 334)
-typedef VOID (*EFI_RESET_SYSTEM) (EFI_RESET_TYPE ResetType, EFI_STATUS ResetStatus, UINTN DataSize, VOID *ResetData);
+typedef VOID (*EFI_RESET_SYSTEM)(EFI_RESET_TYPE ResetType, EFI_STATUS ResetStatus, UINTN DataSize, VOID *ResetData);
 
 // EFI_CAPSULE_HEADER (Page 338)
 typedef struct {
@@ -73,12 +72,37 @@ typedef struct {
 } EFI_CAPSULE_HEADER;
 
 // UpdateCapsule (Page 337)
-typedef EFI_STATUS UpdateCapsule(EFI_CAPSULE_HEADER **CapsuleHeaderArray, UINTN CapsuleCount, EFI_PHYSICAL_ADDRESS ScatterGatherList /*Optional*/);
+typedef EFI_STATUS (*EFI_UPDATE_CAPSULE)(EFI_CAPSULE_HEADER **CapsuleHeaderArray, UINTN CapsuleCount, EFI_PHYSICAL_ADDRESS ScatterGatherList /*Optional*/);
 
 // QueryCapsuleCapabilities (Page 334)
-typedef EFI_STATUS QueryCapsuleCapabilities(EFI_CAPSULE_HEADER **CapsuleHeaderArray, UINTN CapsuleCount, UINT64 *MaximumCapsuleSize, EFI_RESET_TYPE *ResetType);
+typedef EFI_STATUS (*EFI_QUERY_CAPSULE_CAPABILITIES)(EFI_CAPSULE_HEADER **CapsuleHeaderArray, UINTN CapsuleCount, UINT64 *MaximumCapsuleSize, EFI_RESET_TYPE *ResetType);
 
 // QueryVariableInfo (Page 322)
-typedef EFI_STATUS QueryVariableInfo(UINT32 Attributes, UINT64 *MaximumVariableStorageSize, UINT64 *RemainingVariableStorageSize, UINT64 *MaximumVariableSize);
+typedef EFI_STATUS (*EFI_QUERY_VARIABLE_INFO)(UINT32 Attributes, UINT64 *MaximumVariableStorageSize, UINT64 *RemainingVariableStorageSize, UINT64 *MaximumVariableSize);
+
+// EFI_RUNTIME_SERVICES (Page 171)
+typedef struct {
+	EFI_TABLE_HEADER Hdr;
+
+	EFI_GET_TIME GetTime; // Prototype missing from docs?
+	EFI_SET_TIME SetTime;
+	EFI_GET_WAKEUP_TIME GetWakeupTime;
+	EFI_SET_WAKEUP_TIME SetWakeupTime;
+
+	EFI_SET_VIRTUAL_ADDRESS_MAP SetVirtualAddressMap;
+	EFI_CONVERT_POINTER ConvertPointer;
+
+	EFI_GET_VARIABLE GetVariable;
+	EFI_GET_NEXT_VARIABLE_NAME GetNextVariableName;
+	EFI_SET_VARIABLE SetVariable;
+
+	EFI_GET_NEXT_HIGH_MONOTONIC_COUNT GetNextHighMonotonicCount;
+	EFI_RESET_SYSTEM ResetSystem;
+
+	EFI_UPDATE_CAPSULE UpdateCapsule;
+	EFI_QUERY_CAPSULE_CAPABILITIES QueryCapsuleCapabilities;
+
+	EFI_QUERY_VARIABLE_INFO QueryVariableInfo;
+} EFI_RUNTIME_SERVICES;
 
 #endif
