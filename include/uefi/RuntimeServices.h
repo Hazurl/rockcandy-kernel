@@ -65,7 +65,6 @@ typedef struct {
 } EFI_CAPSULE_HEADER;
 
 // UpdateCapsule (Page 337)
-// EFI_PHYSICAL_ADDRESS?
 typedef EFI_STATUS UpdateCapsule(EFI_CAPSULE_HEADER **CapsuleHeaderArray, UINTN CapsuleCount, EFI_PHYSICAL_ADDRESS ScatterGatherList /*Optional*/);
 
 // EFI_RESET_TYPE (Page 335)
