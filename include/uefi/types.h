@@ -29,8 +29,8 @@ typedef unsigned long UINT64;
 #error "Unable to define INT64"
 #endif
 
-typedef INT64[2] INT128; // Yuck
-typedef UINT64[2] UINT128; // Is there a better way to do this?
+typedef struct { INT64 x[2]; } INT128; // Yuck
+typedef struct { UINT64 x[2]; } UINT128; // Is there a better way to do this?
 
 #if __SIZEOF_POINTER__ == 4
 typedef INT32 INTN;
@@ -50,16 +50,16 @@ typedef UINT8 BOOLEAN;
 typedef UINT8 CHAR8;
 typedef UINT16 CHAR16;
 typedef void VOID; // Do we even need this?
-typedef UINT64[2] EFI_GUID; // Aligned on a 64-bit boundary
+typedef struct { UINT64 x[2]; } EFI_GUID; // Aligned on a 64-bit boundary
 typedef UINTN EFI_STATUS;
 typedef VOID *EFI_HANDLE;
 typedef VOID *EFI_EVENT;
 typedef UINT64 EFI_LBA;
 typedef UINTN EFI_TPL;
-typedef UINT8[32] EFI_MAC_ADDRESS;
-typedef UINT8[4] EFI_IPv4_ADDRESS;
-typedef UINT8[16] EFI_IPv6_ADDRESS;
-typedef UINT32[4] EFI_IP_ADDRESS; // Aligned on a 4 byte boundary
+typedef struct { UINT8 x[32]; } EFI_MAC_ADDRESS;
+typedef struct { UINT8 x[4]; } EFI_IPv4_ADDRESS;
+typedef struct { UINT8 x[16]; } EFI_IPv6_ADDRESS;
+typedef struct { UINT32 x[4]; } EFI_IP_ADDRESS; // Aligned on a 4 byte boundary
 
 // EFI_TABLE_HEADER(Page 163)
 typedef struct {

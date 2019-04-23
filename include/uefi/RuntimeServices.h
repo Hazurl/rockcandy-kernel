@@ -28,11 +28,11 @@ typedef struct {
 typedef EFI_STATUS SetTime(EFI_TIME *Time);
 
 // EFI_GET_WAKEUP_TIME(Page 328)
-typedef EFI_STATUS GetWakeupTime(typedef EFI_STATUS GetWakeupTime(BOOLEAN *Enabled, BOOLEAN *Pending, EFI_TIME *Time);
+typedef EFI_STATUS GetWakeupTime(BOOLEAN *Enabled, BOOLEAN *Pending, EFI_TIME *Time);
 
 // EFI_SET_WAKEUP_TIME(Page 329)
-typedef EFI_STATUS SetWakeupTime(BOOLEAN Enable, EFI_TIME *Time); // Multiple argument signatures not supported?
-typedef EFI_STATUS SetWakeupTime(BOOLEAN Enable);
+typedef EFI_STATUS SetWakeupTime(BOOLEAN Enable, EFI_TIME *Time);
+typedef EFI_STATUS EnableWakeupTime(BOOLEAN Enable);
 
 // SetVirtualAddressMap (Page 331)
 // EFI_MEMORY_DESCRIPTOR is from BootServices
@@ -53,8 +53,16 @@ typedef EFI_STATUS SetVariable(CHAR16 *VariableName, EFI_GUID *VenderGuide, UINT
 // GetNextHighMonotonicCount (Page 336)
 typedef EFI_STATUS GetNextHighMonotonicCount(UINT32 *HighCount);
 
+// EFI_RESET_TYPE (Page 335)
+typedef enum {
+	EfiResetCold,
+	EfiResetWarm,
+	EfiResetShutdown,
+	EfiResetPlatformSpecific
+} EFI_RESET_TYPE;
+
 // ResetSystem (Page 334)
-typedef VOID (EFIAPI *EFI_RESET_SYSTEM) (EFI_RESET_TYPE ResetType, EFI_STATUS ResetStatus, UINTN DataSize, VOID *ResetData);
+typedef VOID (*EFI_RESET_SYSTEM) (EFI_RESET_TYPE ResetType, EFI_STATUS ResetStatus, UINTN DataSize, VOID *ResetData);
 
 // EFI_CAPSULE_HEADER (Page 338)
 typedef struct {
@@ -66,14 +74,6 @@ typedef struct {
 
 // UpdateCapsule (Page 337)
 typedef EFI_STATUS UpdateCapsule(EFI_CAPSULE_HEADER **CapsuleHeaderArray, UINTN CapsuleCount, EFI_PHYSICAL_ADDRESS ScatterGatherList /*Optional*/);
-
-// EFI_RESET_TYPE (Page 335)
-typedef enum {
-	EfiResetCold,
-	EfiResetWarm,
-	EfiResetShutdown,
-	EfiResetPlatformSpecific
-} EFI_RESET_TYPE;
 
 // QueryCapsuleCapabilities (Page 334)
 typedef EFI_STATUS QueryCapsuleCapabilities(EFI_CAPSULE_HEADER **CapsuleHeaderArray, UINTN CapsuleCount, UINT64 *MaximumCapsuleSize, EFI_RESET_TYPE *ResetType);
