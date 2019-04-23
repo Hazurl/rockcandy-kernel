@@ -52,8 +52,6 @@ typedef UINT16 CHAR16;
 typedef void VOID; // Do we even need this?
 typedef struct { UINT64 x[2]; } EFI_GUID; // Aligned on a 64-bit boundary
 typedef UINTN EFI_STATUS;
-typedef VOID *EFI_HANDLE;
-typedef VOID *EFI_EVENT;
 typedef UINT64 EFI_LBA;
 typedef UINTN EFI_TPL;
 typedef struct { UINT8 x[32]; } EFI_MAC_ADDRESS;
