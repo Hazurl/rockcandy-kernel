@@ -5,28 +5,24 @@
 #define UEFI_TYPES_H
 
 // UEFI Types(Page 93)
-#if sizeof(char) == 1
 typedef signed char INT8;
 typedef unsigned char UINT8;
-#else
-#error "Unable to define INT8"
-#endif
 
-#if sizeof(short) == 2
+#if __SIZEOF_SHORT__ == 2
 typedef signed short INT16;
 typedef unsigned short UINT16;
 #else
 #error "Unable to define INT16"
 #endif
 
-#if sizeof(int) == 4
+#if __SIZEOF_INT__ == 4
 typedef signed int INT32;
 typedef unsigned int UINT32;
 #else
 #error "Unable to define INT32"
 #endif
 
-#if sizeof(long) == 8
+#if __SIZEOF_LONG__ == 8
 typedef signed long INT64;
 typedef unsigned long UINT64;
 #else
@@ -36,13 +32,13 @@ typedef unsigned long UINT64;
 typedef INT64[2] INT128; // Yuck
 typedef UINT64[2] UINT128; // Is there a better way to do this?
 
-#if sizeof(void *) == 4
+#if __SIZEOF_POINTER__ == 4
 typedef INT32 INTN;
 typedef UINT32 UINTN;
-#elif sizeof(void *) == 8
+#elif __SIZEOF_POINTER__ == 8
 typedef INT64 INTN;
 typedef UINT64 UINTN;
-#elif sizeof(void *) == 16
+#elif __SIZEOF_POINTER__ == 16
 typedef INT128 INTN;
 typedef UINT128 UINTN;
 #else
