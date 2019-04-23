@@ -85,11 +85,8 @@ typedef EFI_STATUS (*EFI_ALLOCATE_POOL) (EFI_MEMORY_TYPE PoolType, UINTN Size, V
 // FreePool(Page 242)
 typedef EFI_STATUS (*EFI_FREE_POOL) (VOID *Buffer);
 
-// EFI_TPL(Page 229)
-typedef EFI_TPL (EFIAPI *EFI_RAISE_TPL) (EFI_TPL NewTpl);
-
 // EFI_EVENT_NOTIFY(Page 219)
-typedef VOID (EFIAPI *EFI_EVENT_NOTIFY) (EFI_EVENT Event, VOID *Context);
+typedef VOID (*EFI_EVENT_NOTIFY) (EFI_EVENT Event, VOID *Context);
 
 // CreateEvent(Page 217)
 typedef EFI_STATUS (*EFI_CREATE_EVENT) (UINT32 Type, EFI_TPL NotifyTpl, EFI_EVENT_NOTIFY NotifyFunction /*Optional*/, VOID *NotifyContext /*Optional*/);
@@ -107,11 +104,19 @@ typedef EFI_STATUS (*EFI_SET_TIMER) (EFI_EVENT Event, EFI_TIMER_DELAY Type, UINT
 // WaitForEvent(Page 225)
 typedef EFI_STATUS (*EFI_WAIT_FOR_EVENT) (UINTN NumberOfEvents, EFI_EVENT *Event, UINTN* Index);
 
+// EFI_SIGNAL_EVENT
+typedef EFI_STATUS (*EFI_SIGNAL_EVENT) (EFI_EVENT Event);
+
 // CloseEvent(Page 224)
 typedef EFI_STATUS (*EFI_CLOSE_EVENT) (EFI_EVENT Event);
 
 // CheckEvent(Page 227)
 typedef EFI_STATUS (*EFI_CHECK_EVENT) (EFI_EVENT Event);
+
+// EFI_INTERFACE_TYPE(Page 249)
+typedef enum {
+	EFI_NATIVE_INTERFACE // Just this? Okay then.
+} EFI_INTERFACE_TYPE;
 
 // InstallProtocolInterface(Page 247)
 typedef EFI_STATUS (*EFI_INSTALL_PROTOCOL_INTERFACE) (EFI_HANDLE *Handle, EFI_GUID *Protocol, EFI_INTERFACE_TYPE InterfaceType, VOID *Interface);
@@ -148,11 +153,8 @@ typedef struct _EFI_DEVICE_PATH_PROTOCOL {
 // LocateDevicePath(Page 258)
 typedef EFI_STATUS (*EFI_LOCATE_DEVICE_PATH) (EFI_GUID *Protocol, EFI_DEVICE_PATH_PROTOCOL **DevicePath, EFI_HANDLE *Device);
 
-// EFI_INSTALL_CONFIGURATION_TABLE(Page 296)
-typedef EFI_STATUS (EFIAPI *EFI_INSTALL_CONFIGURATION_TABLE) (EFI_GUID *Guid, VOID *Table);
-
 // InstallConfigurationTable(Page 296)
-typedef EFI_STATUS (*EFI_INSTALL_CONFIGURATION_TABLE) (EFI_GUID, *Guid, VOID *Table);
+typedef EFI_STATUS (*EFI_INSTALL_CONFIGURATION_TABLE) (EFI_GUID *Guid, VOID *Table);
 
 // LoadImage(Page 284)
 typedef EFI_STATUS (*EFI_IMAGE_LOAD) (BOOLEAN BootPolicy, EFI_HANDLE ParentImageHandle, EFI_DEVICE_PATH_PROTOCOL *DevicePath, VOID *SourceBuffer /*Optiaonal*/, UINTN SourceSize, EFI_HANDLE *ImageHandle);
@@ -199,7 +201,7 @@ typedef struct {
 } EFI_OPEN_PROTOCOL_INFORMATION_ENTRY;
 
 // OpenProtocolInformation(Page 267)
-typedef EFI_STATUS (*EFI_OPEN_PROTOCOL_INFORMATION) (EFI_HANDLE Handle, EFI_GUIDE *Protocol, EFI_OPEN_PROTOCOL_INFORMATION_ENTRY **EntryBuffer, UINTN *EntryCount);
+typedef EFI_STATUS (*EFI_OPEN_PROTOCOL_INFORMATION) (EFI_HANDLE Handle, EFI_GUID *Protocol, EFI_OPEN_PROTOCOL_INFORMATION_ENTRY **EntryBuffer, UINTN *EntryCount);
 
 // ProtocolsPerHandle(Page 275)
 typedef EFI_STATUS (*EFI_PROTOCOL_PER_HANDLE) (EFI_HANDLE Handle, EFI_GUID ***ProtocolBuffer, UINTN *ProtoclBufferCount);
