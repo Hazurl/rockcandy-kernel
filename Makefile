@@ -1,5 +1,5 @@
 CC=x86_64-w64-mingw32-gcc
-CFLAGS=-ffreestanding -Iinclude
+CFLAGS=-ffreestanding -Iinclude -std=c17
 LD=x86_64-w64-mingw32-ld
 LDFLAGS=-nostdlib -Wl,-dll -shared -Wl,--subsystem,10 -e efi_main
 
