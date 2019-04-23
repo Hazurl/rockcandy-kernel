@@ -6,10 +6,10 @@ LDFLAGS=-nostdlib -Wl,-dll -shared -Wl,--subsystem,10 -e efi_main
 OBJECTS=main.o
 
 kernel: $(addprefix src/, $(OBJECTS))
-	$(LD) $(LDFLAGS) -o $@ $^
+	$(LD) $(LDFLAGS) -o rockcandy.efi $^
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm $(addprefix src/, $(OBJECTS))
+	rm $(addprefix src/, $(OBJECTS)) rockcandy.efi
