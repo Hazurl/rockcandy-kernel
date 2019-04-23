@@ -14,10 +14,10 @@ typedef UINTN EFI_TPL;
 #define TPL_HIGH_LEVEL 31
 
 // RaiseTPL(Page 229)
-typedef EFI_TPL (VOID *EFI_RAISE_TPL) (EFI_TPL NewTpl);
+typedef EFI_TPL (*EFI_RAISE_TPL) (EFI_TPL NewTpl);
 
 // RestoreTPL(Page 230)
-typedef VOID (VOID *EFI_RESTORE_TPL) (EFI_TPL OldTpl);
+typedef VOID (*EFI_RESTORE_TPL) (EFI_TPL OldTpl);
 
 // EFI_ALLOCATE_TYPE(Page 234)
 typedef enum {
@@ -48,16 +48,16 @@ typedef enum {
 } EFI_MEMORY_TYPE;
 
 // AllocatePages(Page 234)
-typedef EFI_STATUS (VOID *EFI_ALLOCATE_PAGES) (EFI_ALLOCATE_TYPE Type, EFI_MEMORY_TYPE MemoryType, UINTN Pages, EFI_PHYSICAL_ADDRESS *Memory);
+typedef EFI_STATUS (*EFI_ALLOCATE_PAGES) (EFI_ALLOCATE_TYPE Type, EFI_MEMORY_TYPE MemoryType, UINTN Pages, EFI_PHYSICAL_ADDRESS *Memory);
 
 // FreePages(Page 236)
-typedef EFI_STATUS (VOID *EFI_FREE_PAGES) (EFI_PHYSICAL_ADDRESS Memory, UINTN Pages);
+typedef EFI_STATUS (*EFI_FREE_PAGES) (EFI_PHYSICAL_ADDRESS Memory, UINTN Pages);
 
 // EFI_MEMORY_DESCRIPTOR(Page 238)
 typedef struct {
   UINT32 Type;
   EFI_PHYSICAL_ADDRESS PhysicalStart;
-  EFI_VIRTUAL_ADDRESS VirtualStart;
+  //EFI_VIRTUAL_ADDRESS VirtualStart;
   UINT64 NumberOfPages;
   UINT64 Attribute;
 } EFI_MEMORY_DESCRIPTOR;
@@ -77,7 +77,7 @@ typedef struct {
 #define EFI_MEMORY_RUNTIME 1 << 63
 
 // GetMemoryMap(Page 237)
-typedef EFI_STATUS (VOID *EFI_GET_MEMORY_MAP) (UINTN *MemoryMapSize, EFI_MEMORY_DESCRIPTOR *MemoryMap, UINTN *MapKey, UINTN *DescriptorSize, UINT32 DescriptorVersion);
+typedef EFI_STATUS (*EFI_GET_MEMORY_MAP) (UINTN *MemoryMapSize, EFI_MEMORY_DESCRIPTOR *MemoryMap, UINTN *MapKey, UINTN *DescriptorSize, UINT32 DescriptorVersion);
 
 // AllocatePool?
 
