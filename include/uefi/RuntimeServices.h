@@ -7,7 +7,6 @@
 #define UEFI_RUNTIME_SERVICES_H
 
 // EFI_TIME(Page 325)
-
 typedef struct {
 	UINT16 Year;
 	UINT8 Month;
@@ -21,8 +20,19 @@ typedef struct {
 	UINT8 Daylight;
 	UINT8 Pad2;
 } EFI_TIME;
+#define EFI_TIME_ADJUST_DAYLIGHT 1 << 0
+#define EFI_TIME_IN_DAYLIGHT 1 << 1
+#define EFI_UNSPECIFIED_TIMEZONE 0x07FF
 
-// GetTime?
+// EFI_TIME_CAPABILITIES(Page 326)
+typedef struct {
+	UINT32 Resolution;
+	UINT32 Accuracy;
+	BOOLEAN SetsToZero;
+} EFI_TIME_CAPABILITIES;
+
+// EFI_GET_TIME(Page 324)
+typedef EFI_STATUS (*EFI_GET_TIME)(EFI_TIME *Time, EFI_TIME_CAPABILITIES *Capabilities);
 
 // EFI_SET_TIME(Page 327)
 typedef EFI_STATUS (*EFI_SET_TIME)(EFI_TIME *Time);
