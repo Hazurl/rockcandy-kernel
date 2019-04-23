@@ -25,6 +25,9 @@ typedef unsigned int UINT32;
 #if __SIZEOF_LONG__ == 8
 typedef signed long INT64;
 typedef unsigned long UINT64;
+#elif __SIZEOF_LONG_LONG__ == 8
+typedef signed long long INT64;
+typedef unsigned long long UINT64;
 #else
 #error "Unable to define INT64"
 #endif
