@@ -79,76 +79,208 @@ typedef struct {
 // GetMemoryMap(Page 237)
 typedef EFI_STATUS (*EFI_GET_MEMORY_MAP) (UINTN *MemoryMapSize, EFI_MEMORY_DESCRIPTOR *MemoryMap, UINTN *MapKey, UINTN *DescriptorSize, UINT32 DescriptorVersion);
 
-// AllocatePool?
+// AllocatePool(Page 241)
+typedef EFI_STATUS (*EFI_ALLOCATE_POOL) (EFI_MEMORY_TYPE PoolType, UINTN Size, VOID **Buffer);
 
-// FreePool?
+// FreePool(Page 242)
+typedef EFI_STATUS (*EFI_FREE_POOL) (VOID *Buffer);
 
-// CreateEvent?
+// EFI_TPL(Page 229)
+typedef EFI_TPL (EFIAPI *EFI_RAISE_TPL) (EFI_TPL NewTpl);
 
-// SetTimer?
+// EFI_EVENT_NOTIFY(Page 219)
+typedef VOID (EFIAPI *EFI_EVENT_NOTIFY) (EFI_EVENT Event, VOID *Context);
 
-// WaitForEvent?
+// CreateEvent(Page 217)
+typedef EFI_STATUS (*EFI_CREATE_EVENT) (UINT32 Type, EFI_TPL NotifyTpl, EFI_EVENT_NOTIFY NotifyFunction /*Optional*/, VOID *NotifyContext /*Optional*/);
 
-// CloseEvent?
+// EFI_TIMER_DELAY(Page 229)
+typedef enum {
+  TimerCancel,
+  TimerPeriodic,
+  TimerRelative
+} EFI_TIMER_DELAY;
 
-// CheckEvent?
+// SetTimer(Page 227)
+typedef EFI_STATUS (*EFI_SET_TIMER) (EFI_EVENT Event, EFI_TIMER_DELAY Type, UINT64 TriggerTime);
 
-// InstallProtocolInterface?
+// WaitForEvent(Page 225)
+typedef EFI_STATUS (*EFI_WAIT_FOR_EVENT) (UINTN NumberOfEvents, EFI_EVENT *Event, UINTN* Index);
 
-// ReinstallProtocolInterface?
+// CloseEvent(Page 224)
+typedef EFI_STATUS (*EFI_CLOSE_EVENT) (EFI_EVENT Event);
 
-// UninstallProtocolInterface?
+// CheckEvent(Page 227)
+typedef EFI_STATUS (*EFI_CHECK_EVENT) (EFI_EVENT Event);
 
-// HandleProtocol?
+// InstallProtocolInterface(Page 247)
+typedef EFI_STATUS (*EFI_INSTALL_PROTOCOL_INTERFACE) (EFI_HANDLE *Handle, EFI_GUID *Protocol, EFI_INTERFACE_TYPE InterfaceType, VOID *Interface);
 
-// RegisterProtocolNotify?
+// ReinstallProtocolInterface(Page 251)
+typedef EFI_STATUS (*EFI_REINSTALL_PROTOCOL_INTERFACE) (EFI_HANDLE Handle, EFI_GUID *Protocol, VOID *OldInterface, VOID *NewInterface);
 
-// LocateHandle?
+// UninstallProtocolInterface(Page 250)
+typedef EFI_STATUS (*EFI_UNINSTALL_PROTOCOL_INTERFACE) (EFI_HANDLE Handle, EFI_GUID *Protocol, VOID *Interface);
 
-// LocateDevicePath?
+// HandleProtocol(Page 256)
+typedef EFI_STATUS (*EFI_HANDLE_PROTOCOL) (EFI_HANDLE Handle, EFI_GUID *Protocol, VOID **Interface);
 
-// InstallConfigurationTable?
+// RegisterProtocolNotify(Page 253)
+typedef EFI_STATUS (*EFI_REGISTER_PROTOCOL_NOTIFY) (EFI_GUID *Protocol, EFI_EVENT Event, VOID **Registration);
 
-// LoadImage?
+// EFI_LOCATE_SEARCH_TYPE(Page 255)
+typedef enum {
+  AllHandles,
+  ByRegistryNotify,
+  ByProtocol
+} EFI_LOCATE_SEARCH_TYPE;
 
-// StartImage?
+// LocateHandle(Page 254)
+typedef EFI_STATUS (*EFI_LOCATE_HANDLE) (EFI_LOCATE_SEARCH_TYPE SearchType, EFI_GUID *Protocol /*Optional*/, VOID *SearchKey /*Optional*/, UINTN *BufferSize, EFI_HANDLE *Buffer);
 
-// Exit?
+// EFI_DEVICE_PATH_PROTOCOL(Page 357)
+typedef struct _EFI_DEVICE_PATH_PROTOCOL {
+  UINT8 Type;
+  UINT8 SubType;
+  UINT8 Length[2];
+} EFI_DEVICE_PATH_PROTOCOL;
 
-// UnloadImage?
+// LocateDevicePath(Page 258)
+typedef EFI_STATUS (*EFI_LOCATE_DEVICE_PATH) (EFI_GUID *Protocol, EFI_DEVICE_PATH_PROTOCOL **DevicePath, EFI_HANDLE *Device);
 
-// ExitBootServices?
+// EFI_INSTALL_CONFIGURATION_TABLE(Page 296)
+typedef EFI_STATUS (EFIAPI *EFI_INSTALL_CONFIGURATION_TABLE) (EFI_GUID *Guid, VOID *Table);
 
-// GetNextMonatomicCount?
+// InstallConfigurationTable(Page 296)
+typedef EFI_STATUS (*EFI_INSTALL_CONFIGURATION_TABLE) (EFI_GUID, *Guid, VOID *Table);
 
-// Stall?
+// LoadImage(Page 284)
+typedef EFI_STATUS (*EFI_IMAGE_LOAD) (BOOLEAN BootPolicy, EFI_HANDLE ParentImageHandle, EFI_DEVICE_PATH_PROTOCOL *DevicePath, VOID *SourceBuffer /*Optiaonal*/, UINTN SourceSize, EFI_HANDLE *ImageHandle);
 
-// SetWatchdogTimer?
+// StartImage(Page 286)
+typedef EFI_STATUS (*EFI_IMAGE_START) (EFI_HANDLE ImageHandle, UINTN *ExitDataSize, CHAR16 **ExitData /*Optional*/);
 
-// ConnectController?
+// Exit(Page 289)
+typedef EFI_STATUS (*EFI_EXIT) (EFI_HANDLE ImageHandle, EFI_STATUS ExitStatus, UINTN ExitDataSize, CHAR16 *ExitData /*Optional*/);
 
-// DisconnectController?
+// UnloadImage(Page 287)
+typedef EFI_STATUS (*EFI_IMAGE_UNLOAD) (EFI_HANDLE ImageHandle);
 
-// OpenProtocol?
+// ExitBootServices(Page 291)
+typedef EFI_STATUS (*EFI_EXIT_BOOT_SERVICES) (EFI_HANDLE ImageHandle, UINTN MapKey);
 
-// CloseProtocol?
+// GetNextMonatomicCount(Page 296)
+typedef EFI_STATUS (*EFI_GET_NEXT_MONATOMIC_COUNT) (UINT64 *Count);
 
-// OpenProtocolInformation?
+// Stall(Page 294)
+typedef EFI_STATUS (*EFI_STALL) (UINTN Microseconds);
 
-// ProtocolsPerHandle?
+// SetWatchdogTimer(Page 293)
+typedef EFI_STATUS (*EFI_SET_WATCHDOG_TIMER) (UINTN Timeout, UINT64 WatchdogCode, UINTN DataSize, CHAR16 *WatchdogData /*Optional*/);
 
-// LocateHandleBuffer?
+// ConnectController(Page 269)
+typedef EFI_STATUS (*EFI_CONNECT_CONTROLLER) (EFI_HANDLE ControllerHandle, EFI_HANDLE *DriverImageHandle /*Optional*/, EFI_DEVICE_PATH_PROTOCOL *RemainingDevicePath /*Optional*/, BOOLEAN Recursive);
 
-// LocateProtocol?
+// DisconnectController(Page 273)
+typedef EFI_STATUS (*EFI_DISCONNECT_CONTROLLER) (EFI_HANDLE ControllerHandle, EFI_HANDLE DriverImageHandle /*Optional*/, EFI_HANDLE ChildHandle /*Optional*/);
 
-// InstallMultipleProtocolInterfaces?
+// OpenProtocol(Page 259)
+typedef EFI_STATUS (*EFI_OPEN_PROTOCOL) (EFI_HANDLE Handle, EFI_GUID *Protcol, VOID **Interface /*Optional*/, EFI_HANDLE AgentHandle, EFI_HANDLE ControllerHandle, UINT32 Attributes);
 
-// UninstallMultipleProtocolInterfaces?
+// CloseProtocol(Page 265)
+typedef EFI_STATUS (*EFI_CLOSE_PROTOCOL) (EFI_HANDLE Handle, EFI_GUID *Protocol, EFI_HANDLE AgentHandle, EFI_HANDLE ControllerHandle);
 
-// CalculateCrc32?
+// EFI_OPEN_PROTOCOL_INFORMATION_ENTRY(Page 268)
+typedef struct {
+  EFI_HANDLE AgentHandle;
+  EFI_HANDLE ControllerHandle;
+  UINT32 Attributes;
+  UINT32 OpenCount;
+} EFI_OPEN_PROTOCOL_INFORMATION_ENTRY;
 
-// CopyMem?
+// OpenProtocolInformation(Page 267)
+typedef EFI_STATUS (*EFI_OPEN_PROTOCOL_INFORMATION) (EFI_HANDLE Handle, EFI_GUIDE *Protocol, EFI_OPEN_PROTOCOL_INFORMATION_ENTRY **EntryBuffer, UINTN *EntryCount);
 
-// SetMem?
+// ProtocolsPerHandle(Page 275)
+typedef EFI_STATUS (*EFI_PROTOCOL_PER_HANDLE) (EFI_HANDLE Handle, EFI_GUID ***ProtocolBuffer, UINTN *ProtoclBufferCount);
+
+// LocateHandleBuffer(Page 276)
+typedef EFI_STATUS (*EFI_LOCATE_HANDLE_BUFFER) (EFI_LOCATE_SEARCH_TYPE SearchType, EFI_GUID *Protocol /*Optional*/, VOID *SearchKey /*Optional*/, UINTN *NoHandles, EFI_HANDLE **Buffer);
+
+// LocateProtocol(Page 279)
+typedef EFI_STATUS (*EFI_LOCATE_PROTOCOL) (EFI_GUID *Protcol, VOID *Registration /*Optional*/, VOID **Interface);
+
+// InstallMultipleProtocolInterfaces(Page 280)
+typedef EFI_STATUS (*EFI_INSTALL_MULTIPLE_PROTOCOL_INTERFACES) (EFI_HANDLE *Handle, ...);
+
+// UninstallMultipleProtocolInterfaces(Page 281)
+typedef EFI_STATUS (*EFI_UNINSTALL_MULTIPLE_PROTOCOL_INTERFACES) (EFI_HANDLE *Handle, ...);
+
+// CalculateCrc32(Page 297)
+typedef EFI_STATUS (*EFI_CALCULATE_CRC32) (VOID *Data, UINTN DataSize, UINT32 *Crc32);
+
+// CopyMem(Page 294)
+typedef EFI_STATUS (*EFI_COPY_MEM) (VOID *Destination, VOID *Source, UINTN Length);
+
+// SetMem(Page 295)
+typedef EFI_STATUS (*EFI_SET_MEM) (VOID *Buffer, UINTN Size, UINT8 Value);
+
+// EFI_BOOT_SERVICES(Page 166)
+typedef struct {
+	EFI_TABLE_HEADER Hdr;
+
+	EFI_RAISE_TPL RaiseTPL;
+	EFI_RESTORE_TPL RestoreTPL;
+
+	EFI_ALLOCATE_PAGES AllocatePages;
+	EFI_FREE_PAGES FreePages;
+	EFI_GET_MEMORY_MAP GetMemoryMap;
+	EFI_ALLOCATE_POOL AllocatePool;
+	EFI_FREE_POOL FreePool;
+
+	EFI_CREATE_EVENT CreateEvent;
+	EFI_SET_TIMER SetTimer;
+	EFI_WAIT_FOR_EVENT WaitForEvent;
+	EFI_SIGNAL_EVENT CloseEvent;
+	EFI_CHECK_EVENT CheckEvent;
+
+	EFI_INSTALL_PROTOCOL_INTERFACE InstallProtocolInterface;
+	EFI_REINSTALL_PROTOCOL_INTERFACE ReinstallProtocolInterface;
+	EFI_UNINSTALL_PROTOCOL_INTERFACE UninstallProtocolInterface;
+	EFI_HANDLE_PROTOCOL HandleProtocol;
+	VOID* Reserved;
+	EFI_REGISTER_PROTOCOL_NOTIFY RegisterProtocolNotify;
+	EFI_LOCATE_HANDLE LocateHandle;
+	EFI_LOCATE_DEVICE_PATH LocateDevicePath;
+	EFI_INSTALL_CONFIGURATION_TABLE InstallConfigurationTable;
+
+	EFI_IMAGE_LOAD LoadImage;
+	EFI_IMAGE_START StartImage;
+	EFI_EXIT Exit;
+	EFI_IMAGE_UNLOAD UnloadImage;
+	EFI_EXIT_BOOT_SERVICES ExitBootServices;
+
+	EFI_GET_NEXT_MONATOMIC_COUNT GetNextMonatomicCount;
+	EFI_STALL Stall;
+	EFI_SET_WATCHDOG_TIMER SetWatchdogTimer;
+
+	EFI_CONNECT_CONTROLLER ConnectController;
+	EFI_DISCONNECT_CONTROLLER DisconnectController;
+
+	EFI_OPEN_PROTOCOL OpenProtocol;
+	EFI_CLOSE_PROTOCOL CloseProtocol;
+	EFI_OPEN_PROTOCOL_INFORMATION OpenProtocolInformation;
+
+	EFI_PROTOCOL_PER_HANDLE ProtocolsPerHandle;
+	EFI_LOCATE_HANDLE_BUFFER LocateHandleBuffer;
+	EFI_LOCATE_PROTOCOL LocateProtocol;
+	EFI_INSTALL_MULTIPLE_PROTOCOL_INTERFACES InstallMultipleProtocolInterfaces;
+	EFI_UNINSTALL_MULTIPLE_PROTOCOL_INTERFACES UninstallMultipleProtocolInterfaces;
+
+	EFI_CALCULATE_CRC32 CalculateCrc32;
+
+	EFI_COPY_MEM CopyMem;
+	EFI_SET_MEM SetMem;
+} EFI_BOOT_SERVICES;
 
 #endif

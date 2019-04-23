@@ -73,4 +73,10 @@ typedef struct {
 // EFI_PHYSICAL_ADDRESS(Page 235)
 typedef UINT64 EFI_PHYSICAL_ADDRESS;
 
+// EFI_EVENT(Page 218)
+typedef VOID *EFI_EVENT;
+
+// EFI_HANDLE(Page 249)
+typedef VOID *EFI_HANDLE;
+
 #endif
