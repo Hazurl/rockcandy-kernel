@@ -11,8 +11,7 @@ kernel: $(addprefix src/, $(OBJECTS))
 	/sbin/mkfs.fat -F 32 -n ROCKCANDY rockcandy.img
 	mkdir temp
 	sudo mount -t vfat rockcandy.img temp/
-	sudo mkdir -p temp/efi/boot/
-	sudo cp rockcandy.efi temp/efi/boot/
+	sudo cp rockcandy.efi temp/
 	sudo umount temp/
 	rmdir temp
 
@@ -20,4 +19,4 @@ kernel: $(addprefix src/, $(OBJECTS))
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	$(RM) $(addprefix src/, $(OBJECTS)) rockcandy.efi
+	$(RM) $(addprefix src/, $(OBJECTS)) rockcandy.efi rockcandy.img rockcandy.iso
