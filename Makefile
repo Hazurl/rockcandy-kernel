@@ -12,9 +12,12 @@ kernel: $(addprefix src/, $(OBJECTS))
 	mkdir temp
 	sudo mount -t vfat rockcandy.img temp/
 	sudo mkdir -p temp/EFI/boot/
-	sudo cp rockcandy.efi temp/EFI/boot/bootx64.efi
+	sudo cp rockcandy.efi temp/EFI/boot/BOOTX64.efi
 	sudo umount temp/
 	rmdir temp
+
+run: kernel
+	qemu-system-x86_64 -L OVMF_dir/ -bios /usr/share/ovmf/OVMF.fd -hda rockcandy.img
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
