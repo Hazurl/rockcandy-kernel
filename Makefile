@@ -1,6 +1,6 @@
-CC=i686-w64-mingw32-gcc
+CC=x86_64-w64-mingw32-gcc
 CFLAGS=-ffreestanding -Iinclude -std=c17
-LD=i686-w64-mingw32-gcc
+LD=x86_64-w64-mingw32-gcc
 LDFLAGS=-nostdlib -Wl,-dll -shared -Wl,--subsystem,10 -e efi_main
 
 OBJECTS=main.o
@@ -11,7 +11,8 @@ kernel: $(addprefix src/, $(OBJECTS))
 	/sbin/mkfs.fat -F 32 -n ROCKCANDY rockcandy.img
 	mkdir temp
 	sudo mount -t vfat rockcandy.img temp/
-	sudo cp rockcandy.efi temp/
+	sudo mkdir -p temp/EFI/boot/
+	sudo cp rockcandy.efi temp/EFI/boot/bootx64.efi
 	sudo umount temp/
 	rmdir temp
 
