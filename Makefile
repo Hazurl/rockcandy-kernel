@@ -18,6 +18,8 @@ kernel: $(addprefix src/, $(OBJECTS))
 
 run: kernel
 	qemu-system-x86_64 -L OVMF_dir/ -bios /usr/share/ovmf/OVMF.fd -hda rockcandy.img
+runarch: kernel
+	qemu-system-x86_64 -L OVMF_dir/ -bios /usr/share/ovmf/x64/OVMF_CODE.fd -hda rockcandy.img -boot c,menu=on -net none
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
