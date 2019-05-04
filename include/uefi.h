@@ -9,6 +9,9 @@
 #include <uefi/SystemTable.h>
 #include <uefi/types.h>
 
+#ifndef UEFI_H
+#define UEFI_H
+
 // Status Codes(Page 2286)
 
 #if __SIZEOF_POINTER__ == 8
@@ -60,3 +63,5 @@
 #define EFI_WARN_STALE_DATA 5
 #define EFI_WARN_FILE_SYSTEM 6
 #define EFI_WARN_RESET_REQUIRED 7
+
+#endif
