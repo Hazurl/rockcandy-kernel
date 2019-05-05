@@ -8,6 +8,9 @@
 #if __SIZEOF_LONG__ == 8
 typedef unsigned long Elf64_Addr;
 typedef unsigned long Elf64_Off;
+#elif __SIZEOF_LONG_LONG__ == 8
+typedef unsigned long long Elf64_Addr;
+typedef unsigned long long Elf64_Off;
 #else
 #error "Unable to define Elf64_Addr"
 #endif
@@ -28,6 +31,9 @@ typedef signed int Elf64_Sword;
 #if __SIZEOF_LONG__ == 8
 typedef unsigned long Elf64_Xword;
 typedef signed long Elf64_Sxword;
+#elif __SIZEOF_LONG_LONG__ == 8
+typedef unsigned long long Elf64_Xword;
+typedef signed long long Elf64_Sxword;
 #else
 #error "Unable to define Elf64_Xword"
 #endif
@@ -35,14 +41,12 @@ typedef signed long Elf64_Sxword;
 // File Header(Page 3)
 typedef struct {
 	unsigned char e_ident[4];
-	unsigned char e_class;
-	unsigned char e_data;
-	unsigned char e_version;
-	unsigned char e_osabi;
-	unsigned char e_abiversion;
-	unsigned char e_pad;
-	unsigned char e_unused[5];
-	unsigned char e_nident;
+	unsigned char e_ident_class;
+	unsigned char e_ident_data;
+	unsigned char e_ident_version;
+	unsigned char e_ident_osabi;
+	unsigned char e_ident_abiversion;
+	unsigned char e_ident_pad_unused[7];
 	Elf64_Half e_type;
 	Elf64_Half e_machine;
 	Elf64_Word e_version;
@@ -81,7 +85,7 @@ typedef struct {
 // ELF Sections(Page 6)
 #define SHN_UNDEF 0
 #define SHN_ABS 0xFFF1
-#define SHN_COMMON 0xFFSH
+#define SHN_COMMON 0xFFF2
 
 // ELF Section Header(Page 6)
 typedef struct {
@@ -112,9 +116,9 @@ typedef struct {
 #define SHT_DYNSYM 11
 
 // ELF Section Flags(Page 8)
-#define SHF_WRITE 1 << 0
-#define SHF_ALLOC 1 << 1
-#define SHF_EXECINSTR 1 << 2
+#define SHF_WRITE (1 << 0)
+#define SHF_ALLOC (1 << 1)
+#define SHF_EXECINSTR (1 << 2)
 
 // ELF Symbol(Page 9)
 typedef struct {
@@ -150,6 +154,11 @@ typedef struct {
 	Elf64_Sxword r_addend;
 } Elf64_Rela;
 
+// ELF Relocation Info(Page 11)
+#define ELF64_R_SYM(i) ((i) >> 32)
+#define ELF64_R_TYPE(i) ((i) & 0xffffffffL)
+#define ELF64_R_INFO(s, t) (((s) << 32) + ((t) & 0xffffffffL))
+
 // ELF Program Header Table(Page 12)
 typedef struct {
   Elf64_Word p_type;
@@ -172,9 +181,9 @@ typedef struct {
 #define PT_PHDR 6
 
 // ELF Program Header Flags(Page 13)
-#define PF_X 1 << 0
-#define PF_W 1 << 1
-#define PF_R 1 << 2
+#define PF_X (1 << 0)
+#define PF_W (1 << 1)
+#define PF_R (1 << 2)
 
 // ELF Dynamic Table(Page 14)
 typedef struct {
@@ -217,16 +226,6 @@ typedef struct {
 #define DT_FINI_ARRAYSZ 28
 
 // ELF Hashing Function(Page 17)
-usigned long elf64_hash(const unsigned char *name) {
-  unsighed long h = 0, g;
-  while(*name) {
-    h = (h << 4) + *name++;
-		if(g = h & (4 << 28)) {
-			h ^= g >> 24;
-    }
-		h &= ~(4 << 28);
-  }
-	return h;
-}
+unsigned long elf64_hash(const unsigned char *name);
 
 #endif
