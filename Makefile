@@ -25,4 +25,4 @@ runarch: kernel
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	$(RM) $(addprefix src/, $(OBJECTS)) rockcandy.efi rockcandy.img rockcandy.iso
+	$(RM) $(addprefix src/, $(OBJECTS)) rockcandy.efi rockcandy.img
