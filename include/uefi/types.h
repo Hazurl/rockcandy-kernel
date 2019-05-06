@@ -1,36 +1,20 @@
 // Page numbers relate to this document:
 // https://uefi.org/sites/default/files/resources/UEFI_Spec_2_8_final.pdf
 
+#include <fixed.h>
+
 #ifndef UEFI_TYPES_H
 #define UEFI_TYPES_H
 
 // UEFI Types(Page 93)
-typedef signed char INT8;
-typedef unsigned char UINT8;
-
-#if __SIZEOF_SHORT__ == 2
-typedef signed short INT16;
-typedef unsigned short UINT16;
-#else
-#error "Unable to define INT16"
-#endif
-
-#if __SIZEOF_INT__ == 4
-typedef signed int INT32;
-typedef unsigned int UINT32;
-#else
-#error "Unable to define INT32"
-#endif
-
-#if __SIZEOF_LONG__ == 8
-typedef signed long INT64;
-typedef unsigned long UINT64;
-#elif __SIZEOF_LONG_LONG__ == 8
-typedef signed long long INT64;
-typedef unsigned long long UINT64;
-#else
-#error "Unable to define INT64"
-#endif
+typedef s8 INT8;
+typedef u8 UINT8;
+typedef s16 INT16;
+typedef u16 UINT16;
+typedef s32 INT32;
+typedef u32 UINT32;
+typedef s64 INT64;
+typedef u64 UINT64;
 
 typedef struct { INT64 x[2]; } INT128; // Yuck
 typedef struct { UINT64 x[2]; } UINT128; // Is there a better way to do this?

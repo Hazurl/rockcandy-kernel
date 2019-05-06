@@ -1,42 +1,19 @@
 // Page numbers relate to this document:
 // https://uclibc.org/docs/elf-64-gen.pdf
 
+#include <fixed.h>
+
 #ifndef ELF_H
 #define ELF_H
 
 // ELF Types(Page 2)
-#if __SIZEOF_LONG__ == 8
-typedef unsigned long Elf64_Addr;
-typedef unsigned long Elf64_Off;
-#elif __SIZEOF_LONG_LONG__ == 8
-typedef unsigned long long Elf64_Addr;
-typedef unsigned long long Elf64_Off;
-#else
-#error "Unable to define Elf64_Addr"
-#endif
-
-#if __SIZEOF_SHORT__ == 2
-typedef unsigned short Elf64_Half;
-#else
-#error "Unable to define Elf64_Half"
-#endif
-
-#if __SIZEOF_INT__ == 4
-typedef unsigned int Elf64_Word;
-typedef signed int Elf64_Sword;
-#else
-#error "Unable to define Elf64_Word"
-#endif
-
-#if __SIZEOF_LONG__ == 8
-typedef unsigned long Elf64_Xword;
-typedef signed long Elf64_Sxword;
-#elif __SIZEOF_LONG_LONG__ == 8
-typedef unsigned long long Elf64_Xword;
-typedef signed long long Elf64_Sxword;
-#else
-#error "Unable to define Elf64_Xword"
-#endif
+typedef u64 Elf64_Addr;
+typedef u64 Elf64_Off;
+typedef u16 Elf64_Half;
+typedef u32 Elf64_Word;
+typedef s32 Elf64_Sword;
+typedef u64 Elf64_Xword;
+typedef s64 Elf64_Sxword;
 
 // File Header(Page 3)
 typedef struct {
