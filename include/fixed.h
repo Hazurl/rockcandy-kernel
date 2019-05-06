@@ -3,12 +3,8 @@
 #ifndef FIXED_H
 #define FIXED_H
 
-#if __SIZEOF_CHAR__ == 1
 typedef signed char s8;
 typedef unsigned char u8;
-#else
-#error "Unable to define an 8-bit fixed-width integer"
-#endif
 
 #if __SIZEOF_SHORT__ == 2
 typedef signed short s16;
