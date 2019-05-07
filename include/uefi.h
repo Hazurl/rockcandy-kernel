@@ -3,9 +3,11 @@
 
 #include <uefi/BootServices.h>
 #include <uefi/EntryPoint.h>
+#include <uefi/FileProtocol.h>
 #include <uefi/RuntimeServices.h>
-#include <uefi/SimpleTextInput.h>
-#include <uefi/SimpleTextOutput.h>
+#include <uefi/SimpleFileSystemProtocol.h>
+#include <uefi/SimpleTextInputProtocol.h>
+#include <uefi/SimpleTextOutputProtocol.h>
 #include <uefi/SystemTable.h>
 #include <uefi/types.h>
 

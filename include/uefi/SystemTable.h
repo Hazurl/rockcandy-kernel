@@ -2,8 +2,8 @@
 // https://uefi.org/sites/default/files/resources/UEFI_Spec_2_8_final.pdf
 
 #include <uefi/types.h>
-#include <uefi/SimpleTextInput.h>
-#include <uefi/SimpleTextOutput.h>
+#include <uefi/SimpleTextInputProtocol.h>
+#include <uefi/SimpleTextOutputProtocol.h>
 #include <uefi/RuntimeServices.h>
 #include <uefi/BootServices.h>
 
