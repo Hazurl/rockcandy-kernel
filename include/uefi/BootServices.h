@@ -243,7 +243,8 @@ typedef struct {
 	EFI_CREATE_EVENT CreateEvent;
 	EFI_SET_TIMER SetTimer;
 	EFI_WAIT_FOR_EVENT WaitForEvent;
-	EFI_SIGNAL_EVENT CloseEvent;
+	EFI_SIGNAL_EVENT SignalEvent;
+	EFI_CLOSE_EVENT CloseEvent;
 	EFI_CHECK_EVENT CheckEvent;
 
 	EFI_INSTALL_PROTOCOL_INTERFACE InstallProtocolInterface;
