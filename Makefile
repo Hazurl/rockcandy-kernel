@@ -106,7 +106,7 @@ $(TRGT_EFI): $(OBJECTS)
 	$S sudo cp $(TRGT_EFI) temp/EFI/boot/BOOTX64.efi
 	$S sudo umount $(TEMP_DIR)
 	$S rmdir $(TEMP_DIR)
-	$D echo "[+] Enjoy!"
+	$D echo "[*] Enjoy!"
 
 #
 $(OBJECT_DIR)/%.o: $(SOURCE_DIR)/%.c
