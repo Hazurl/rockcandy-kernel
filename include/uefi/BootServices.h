@@ -187,7 +187,7 @@ typedef EFI_STATUS (*EFI_CONNECT_CONTROLLER) (EFI_HANDLE ControllerHandle, EFI_H
 typedef EFI_STATUS (*EFI_DISCONNECT_CONTROLLER) (EFI_HANDLE ControllerHandle, EFI_HANDLE DriverImageHandle /*Optional*/, EFI_HANDLE ChildHandle /*Optional*/);
 
 // OpenProtocol(Page 259)
-typedef EFI_STATUS (*EFI_OPEN_PROTOCOL) (EFI_HANDLE Handle, EFI_GUID *Protcol, VOID **Interface /*Optional*/, EFI_HANDLE AgentHandle, EFI_HANDLE ControllerHandle, UINT32 Attributes);
+typedef EFI_STATUS (*EFI_OPEN_PROTOCOL) (EFI_HANDLE Handle, EFI_GUID *Protocol, VOID **Interface /*Optional*/, EFI_HANDLE AgentHandle, EFI_HANDLE ControllerHandle, UINT32 Attributes);
 
 // CloseProtocol(Page 265)
 typedef EFI_STATUS (*EFI_CLOSE_PROTOCOL) (EFI_HANDLE Handle, EFI_GUID *Protocol, EFI_HANDLE AgentHandle, EFI_HANDLE ControllerHandle);
@@ -210,7 +210,7 @@ typedef EFI_STATUS (*EFI_PROTOCOL_PER_HANDLE) (EFI_HANDLE Handle, EFI_GUID ***Pr
 typedef EFI_STATUS (*EFI_LOCATE_HANDLE_BUFFER) (EFI_LOCATE_SEARCH_TYPE SearchType, EFI_GUID *Protocol /*Optional*/, VOID *SearchKey /*Optional*/, UINTN *NoHandles, EFI_HANDLE **Buffer);
 
 // LocateProtocol(Page 279)
-typedef EFI_STATUS (*EFI_LOCATE_PROTOCOL) (EFI_GUID *Protcol, VOID *Registration /*Optional*/, VOID **Interface);
+typedef EFI_STATUS (*EFI_LOCATE_PROTOCOL) (EFI_GUID *Protocol, VOID *Registration /*Optional*/, VOID **Interface);
 
 // InstallMultipleProtocolInterfaces(Page 280)
 typedef EFI_STATUS (*EFI_INSTALL_MULTIPLE_PROTOCOL_INTERFACES) (EFI_HANDLE *Handle, ...);
