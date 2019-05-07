@@ -28,6 +28,7 @@ TRGT_IMG=$(TARGET_DIR)/rockcandy.img
 OBJECT_NAMES=	\
 				main \
 				elf \
+				panic \
 #
 #
 # ##################

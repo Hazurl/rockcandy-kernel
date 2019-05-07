@@ -22,6 +22,7 @@ EFI_STATUS efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	} else {
 		panic();
 	}
+	panic();
 	while(1) {}
 	return EFI_SUCCESS;
 }
