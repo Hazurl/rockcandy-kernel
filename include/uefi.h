@@ -12,8 +12,10 @@
 #ifndef UEFI_H
 #define UEFI_H
 
-// Status Codes(Page 2286)
+// Protocol GUIDs
+#define EFI_SIMPLE_FILE_SYSTEM_PROTOCOL_GUID {0x964e5b22, 0x6459, 0x11d2, {0x8e, 0x39, 0x00, 0xa0, 0xc9, 0x69, 0x72, 0x3b}} // Page 577
 
+// Status Codes(Page 2286)
 #if __SIZEOF_POINTER__ == 8
 #define EFI_HIGH_BIT 1 << 63
 #else
