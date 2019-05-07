@@ -2,7 +2,7 @@
 #     ____             __                        __         #
 #    / __ \____  _____/ /___________ _____  ____/ /_  __    #
 #   / /_/ / __ \/ ___/ //_/ ___/ __ `/ __ \/ __  / / / /    #
-#  / _, _/ /_/ / /__/ ,< / /__/ /_/ / / / / /_/ / /_/ /     # 
+#  / _, _/ /_/ / /__/ ,< / /__/ /_/ / / / / /_/ / /_/ /     #
 # /_/ |_|\____/\___/_/|_|\___/\__,_/_/ /_/\__,_/\__, /      #
 #                                              /____/       #
 #                       - Kernel -                          #
@@ -97,6 +97,7 @@ all: $(TRGT_EFI)
 $(TRGT_EFI): $(OBJECTS)
 	$D echo "[+] Linking $(TRGT_EFI)"
 	$S $(LD) $(LDFLAGS) -o $(TRGT_EFI) $^
+	$D echo "[+] Building system image"
 	$S dd if=/dev/zero of=$(TRGT_IMG) bs=1048576 count=64 status=none
 	$S /sbin/mkfs.fat -F 32 -n ROCKCANDY $(TRGT_IMG) >/dev/null
 	$S mkdir $(TEMP_DIR)
@@ -105,6 +106,7 @@ $(TRGT_EFI): $(OBJECTS)
 	$S sudo cp $(TRGT_EFI) temp/EFI/boot/BOOTX64.efi
 	$S sudo umount $(TEMP_DIR)
 	$S rmdir $(TEMP_DIR)
+	$D echo "[+] Enjoy!"
 
 #
 $(OBJECT_DIR)/%.o: $(SOURCE_DIR)/%.c
@@ -123,7 +125,7 @@ clean:
 	$S $(RM) -r $(OBJECT_DIR)
 #
 # Full clean, clean everything, including our images
-# 
+#
 fclean: clean
 	$S $(RM) $(TRGT_EFI) $(TRGT_IMG)
 #
