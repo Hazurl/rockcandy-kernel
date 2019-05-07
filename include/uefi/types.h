@@ -37,7 +37,13 @@ typedef UINT8 BOOLEAN;
 typedef UINT8 CHAR8;
 typedef UINT16 CHAR16;
 typedef void VOID; // Do we even need this?
-typedef struct { UINT64 x[2]; } EFI_GUID; // Aligned on a 64-bit boundary
+typedef struct {
+	UINT32 Data1;
+	UINT16 Data2;
+	UINT16 Data3;
+	UINT8 Data4[8];
+} EFI_GUID;
+
 typedef UINTN EFI_STATUS;
 typedef UINT64 EFI_LBA;
 typedef UINTN EFI_TPL;
