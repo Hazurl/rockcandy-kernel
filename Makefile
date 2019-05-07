@@ -121,12 +121,15 @@ $(OBJECT_DIR)/%.o: $(SOURCE_DIR)/%.c
 #
 # Clean all of our object files
 clean:
+	$D echo "[-] Removing $(strip $(OBJECTS))"
 	$S $(RM) $(OBJECTS)
+	$D echo "[-] Removing $(strip $(OBJECT_DIR))"
 	$S $(RM) -r $(OBJECT_DIR)
 #
 # Full clean, clean everything, including our images
 #
 fclean: clean
+	$D echo "[-] Removing $(strip $(TRGT_EFI)) and $(strip $(TRGT_IMG))"
 	$S $(RM) $(TRGT_EFI) $(TRGT_IMG)
 #
 # Recompile fully
@@ -164,4 +167,4 @@ nowarn:
 	$S $(MAKE) -sB WFLAGS=-w
 # Recompile: printing out all commands ran
 verbose: fclean
-	make WFLAGS=-w S=
+	make WFLAGS=-w S= D=@#
