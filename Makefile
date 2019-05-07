@@ -17,7 +17,7 @@ kernel: $(addprefix src/, $(OBJECTS))
 	rmdir temp
 
 run: kernel
-	qemu-system-x86_64 -L OVMF_dir/ -bios /usr/share/ovmf/OVMF.fd -hda rockcandy.img
+	qemu-system-x86_64 -L OVMF_dir/ -bios /usr/share/qemu/ovmf-x86_64.bin -hda rockcandy.img
 runarch: kernel
 	qemu-system-x86_64 -L OVMF_dir/ -bios /usr/share/ovmf/x64/OVMF_CODE.fd -hda rockcandy.img -boot c,menu=on -net none
 
