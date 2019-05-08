@@ -30,7 +30,9 @@ EFI_STATUS efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	if(SystemTable->BootServices->LocateProtocol(&graphics_guid, 0, (void**)&graphics) == EFI_SUCCESS) {
 		ConOut->OutputString(ConOut, u"Got EFI_GRAPHICS_OUTPUT_PROTOCOL!\r\n");
 	} else {
-		kprint(u"Nothin' worked\r\n");
+		ConOut->SetAttribute(ConOut, EFI_TEXT_ATTR(12, 0));
+		ConOut->OutputString(ConOut, u"An unexpected error occured\r\n");
+		ConOut->SetAttribute(ConOut, EFI_TEXT_ATTR(15, 0));
 	}
 
 	test_blt(graphics);
