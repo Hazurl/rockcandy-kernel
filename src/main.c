@@ -54,13 +54,14 @@ EFI_STATUS efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	if(SystemTable->BootServices->LocateProtocol(&FileSystemGUID, 0, (void**)&FileSystem) == EFI_SUCCESS) {
 		if(FileSystem->OpenVolume(FileSystem, &FileProtocol) == EFI_SUCCESS) {
 			if(FileProtocol->Open(FileProtocol, &ShellProtocol, u"shell.elf", EFI_FILE_MODE_READ, EFI_FILE_SYSTEM) == EFI_SUCCESS) {
-				if(ShellProtocol->GetInfo(ShellProtocol, &FileInfoGUID, &FileInfoSize, ShellInfo) == EFI_SUCCESS) {
+				if(ShellProtocol->GetInfo(ShellProtocol, &FileInfoGUID, &FileInfoSize, (VOID *)ShellInfo) == EFI_SUCCESS) {
 					if(SystemTable->BootServices->AllocatePages(AllocateAddress, EfiConventionalMemory, (ShellInfo->FileSize / 4096) + 1, &ShellBuffer) == EFI_SUCCESS) {
 						if(ShellProtocol->Read(ShellProtocol, &ShellInfo->FileSize, (VOID *)ShellBuffer) == EFI_SUCCESS) {
 							ShellHeader = (Elf64_Ehdr *)ShellBuffer;
 							if(ShellHeader->e_ident[0] == 0x7F && ShellHeader->e_ident[1] == 'E' && ShellHeader->e_ident[2] == 'L' && ShellHeader->e_ident[3] == 'F') {
 								if(ShellHeader->e_ident_osabi == ELFOSABI_ROCKCANDY && ShellHeader->e_ident_class == ELFCLASS64 && ShellHeader->e_type == ET_EXEC) {
 									ShellEntry = (u64 (*)(ROCKCANDY_LIBRARY*))ShellHeader->e_entry;
+									SystemLibrary.clear = &clear;
 									SystemLibrary.getc = &getc;
 									SystemLibrary.puts = &puts;
 									SystemLibrary.setattr = &setattr;
