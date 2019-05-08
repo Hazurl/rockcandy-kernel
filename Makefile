@@ -105,7 +105,8 @@ $(TRGT_EFI): $(OBJECTS)
 	$S mkdir $(TEMP_DIR)
 	$S sudo mount -t vfat $(TRGT_IMG) $(TEMP_DIR)
 	$S sudo mkdir -p $(TEMP_DIR)/EFI/boot/
-	$S sudo cp -r $(wildcard $(IMG_DIR)/*) $(TRGT_EFI) $(TEMP_DIR)/EFI/boot/BOOTX64.efi
+	$S if [ -d "$(IMG_DIR)" ]; then sudo cp -r $(IMG_DIR)/. $(TEMP_DIR); fi
+	$S sudo cp $(TRGT_EFI) $(TEMP_DIR)/EFI/boot/BOOTX64.efi 
 	$S sudo umount $(TEMP_DIR)
 	$S rmdir $(TEMP_DIR)
 	$D echo "[*] Enjoy!"
