@@ -17,16 +17,16 @@ typedef struct {
 } EFI_FILE_IO_TOKEN;
 
 // EFI_FILE_MODE(Page 582)
-#define EFI_FILE_MODE_READ 1 << 0
-#define EFI_FILE_MODE_WRITE 1 << 1
-#define EFI_FILE_MODE_CREATE 1 << 63
+#define EFI_FILE_MODE_READ (1 << 0)
+#define EFI_FILE_MODE_WRITE (1 << 1)
+#define EFI_FILE_MODE_CREATE (1 << 63)
 
 // EFI File Attributes(Page 582)
-#define EFI_FILE_READ_ONLY 1 << 0
-#define EFI_FILE_HIDDEN 1 << 1
-#define EFI_FILE_SYSTEM 1 << 2
-#define EFI_FILE_DIRECTORY 1 << 4
-#define EFI_FILE_ARCHIVE 1 << 5
+#define EFI_FILE_READ_ONLY (1 << 0)
+#define EFI_FILE_HIDDEN (1 << 1)
+#define EFI_FILE_SYSTEM (1 << 2)
+#define EFI_FILE_DIRECTORY (1 << 4)
+#define EFI_FILE_ARCHIVE (1 << 5)
 #define EFI_FILE_VALID_ATTR 0x37 // Do we even need this?
 
 // EFI_FILE_OPEN(Page 581)
@@ -93,5 +93,16 @@ typedef struct _EFI_FILE_PROTOCOL {
   EFI_FILE_WRITE_EX WriteEx; // Rev2
   EFI_FILE_FLUSH_EX FlushEx; // Rev2
 } EFI_FILE_PROTOCOL;
+
+typedef struct {
+	u64 Size;
+	u64 FileSize;
+	u64 PhysicalSize;
+	EFI_TIME CreateTime;
+	EFI_TIME LastAccessTime;
+	EFI_TIME ModificationTime;
+	u64 Attribute;
+	CHAR16 FileName[];
+} EFI_FILE_INFO;
 
 #endif
