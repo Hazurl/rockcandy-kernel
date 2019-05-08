@@ -16,6 +16,19 @@ typedef struct {
   VOID *Buffer;
 } EFI_FILE_IO_TOKEN;
 
+// EFI_FILE_MODE(Page 582)
+#define EFI_FILE_MODE_READ 1 << 0
+#define EFI_FILE_MODE_WRITE 1 << 1
+#define EFI_FILE_MODE_CREATE 1 << 63
+
+// EFI File Attributes(Page 582)
+#define EFI_FILE_READ_ONLY 1 << 0
+#define EFI_FILE_HIDDEN 1 << 1
+#define EFI_FILE_SYSTEM 1 << 2
+#define EFI_FILE_DIRECTORY 1 << 4
+#define EFI_FILE_ARCHIVE 1 << 5
+#define EFI_FILE_VALID_ATTR 0x37 // Do we even need this?
+
 // EFI_FILE_OPEN(Page 581)
 typedef EFI_STATUS (*EFI_FILE_OPEN) (struct _EFI_FILE_PROTOCOL *This, struct _EFI_FILE_PROTOCOL **NewHandle, CHAR16 *FileName, UINT64 OpenMode, UINT64 Attributes);
 
