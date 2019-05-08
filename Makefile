@@ -16,6 +16,7 @@ INCLUDE_DIR=./include
 SOURCE_DIR=./src
 OBJECT_DIR=./.obj
 TEMP_DIR=./temp
+IMG_DIR=./files
 SILENT=NO
 #
 TARGET_DIR=.
@@ -104,9 +105,7 @@ $(TRGT_EFI): $(OBJECTS)
 	$S mkdir $(TEMP_DIR)
 	$S sudo mount -t vfat $(TRGT_IMG) $(TEMP_DIR)
 	$S sudo mkdir -p $(TEMP_DIR)/EFI/boot/
-	$S mkdir -p files/
-	$S sudo cp -r $(wildcard files/*) temp/
-	$S sudo cp $(TRGT_EFI) temp/EFI/boot/BOOTX64.efi
+	$S sudo cp -r $(wildcard $(IMG_DIR)/*) $(TRGT_EFI) $(TEMP_DIR)/EFI/boot/BOOTX64.efi
 	$S sudo umount $(TEMP_DIR)
 	$S rmdir $(TEMP_DIR)
 	$D echo "[*] Enjoy!"
@@ -140,8 +139,10 @@ clean:
 # Full clean, clean everything, including our images
 #
 fclean: clean
-	$D echo "[-] Removing $(strip $(TRGT_EFI)) and $(strip $(TRGT_IMG))"
+	$D echo "[-] Removing $(strip $(TRGT_EFI)), $(strip $(TRGT_IMG)) and $(TEMP_DIR)"
 	$S $(RM) $(TRGT_EFI) $(TRGT_IMG)
+	$S if [ -d "$(TEMP_DIR)" ]; then sudo umount $(TEMP_DIR); $(RM) -r $(TEMP_DIR); fi
+
 #
 # Recompile fully
 # NOTE: This can be useful when a header file has changed
