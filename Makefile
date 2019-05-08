@@ -85,6 +85,7 @@ LDFLAGS=	\
 			-Wl,--subsystem,10 \
 			-e efi_main \
 #
+AC=x86_64-w64-mingw32-as
 CC=x86_64-w64-mingw32-gcc
 LD=x86_64-w64-mingw32-gcc
 QEMU=qemu-system-x86_64
@@ -110,10 +111,18 @@ $(TRGT_EFI): $(OBJECTS)
 	$D echo "[*] Enjoy!"
 
 #
+# rules on how to build C11 files
 $(OBJECT_DIR)/%.o: $(SOURCE_DIR)/%.c
 	$D echo "[+] Making object $@"
 	$S @mkdir -p $(OBJECT_DIR)
 	$S $(CC) $(CFLAGS) -c -o $@ $<
+#
+# rules on how to build ASSEMBLY files
+$(OBJECT_DIR)/%.o: $(SOURCE_DIR)/%.s
+	$D echo "[+] Making object $@"
+	$S @mkdir -p $(OBJECT_DIR)
+	$S $(AC) -c -o $@ $<
+#
 #
 #
 # ###########
