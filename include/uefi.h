@@ -6,6 +6,7 @@
 #include <uefi/FileProtocol.h>
 #include <uefi/RuntimeServices.h>
 #include <uefi/SimpleFileSystemProtocol.h>
+#include <uefi/SimpleTextInputExProtocol.h>
 #include <uefi/SimpleTextInputProtocol.h>
 #include <uefi/SimpleTextOutputProtocol.h>
 #include <uefi/GraphicsOutputProtocol.h>
