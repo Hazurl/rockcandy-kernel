@@ -75,4 +75,6 @@
 #define EFI_WARN_FILE_SYSTEM      6
 #define EFI_WARN_RESET_REQUIRED   7
 
+u16* EFI_GET_STATUS_MESSAGE(EFI_STATUS status);
+
 #endif
